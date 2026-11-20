@@ -1,26 +1,286 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Design Tokens — Human Architectural / Industrial Precision Palette
+   Purged of generic "AI Purple" gradients and neon glow blobs
+   ============================================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  /* Canvas: Warm architectural drafting vellum / paper */
+  --bg: #f6f5f0;
+  --bg-elevated: #ffffff;
+  --bg-subtle: #ece8de;
+  --border: #d8d4c6;
+  --border-strong: #bfb9a7;
+
+  /* Typography: Rich carbon black & warm graphite */
+  --text: #171614;
+  --text-muted: #646057;
+
+  /* Human Signature Accent: Industrial Terracotta / Safety Forge Orange */
+  --accent: #c2410c;
+  --accent-hover: #9a3412;
+  --accent-soft: rgba(194, 65, 12, 0.08);
+
+  --success: #287a4c;
+
+  --font-heading: var(--font-inter-tight), system-ui, sans-serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 }
 
+.dark {
+  color-scheme: dark;
+
+  /* Canvas: Deep furnace carbon obsidian / instrument slate */
+  --bg: #0c0d10;
+  --bg-elevated: #13151a;
+  --bg-subtle: #1a1d24;
+  --border: #262934;
+  --border-strong: #383e4d;
+
+  /* Typography: Warm bone paper off-white & machined steel */
+  --text: #f3f2ee;
+  --text-muted: #8d929f;
+
+  /* Human Signature Accent: Caliper Copper / Warm Filament Amber */
+  --accent: #ea580c;
+  --accent-hover: #f97316;
+  --accent-soft: rgba(234, 88, 12, 0.12);
+
+  --success: #34b374;
+}
+
+/* ============================================================
+   Tailwind v4 @theme inline
+   ============================================================ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-success: var(--success);
+
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-heading);
+  --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================================
+   Base Styles
+   ============================================================ */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html:not(.no-transitions) * {
+  transition-property: background-color, border-color, color;
+  transition-duration: 160ms;
+  transition-timing-function: ease;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* Skip to content link */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 100;
+  padding: 8px 16px;
+  background: var(--accent);
+  color: white;
+  border-radius: 0 0 6px 6px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* ============================================================
+   Typography
+   ============================================================ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.028em;
+  line-height: 1.15;
+  color: var(--text);
+}
+
+p {
+  max-width: 65ch;
+}
+
+/* Architectural Drafting Grid Pattern */
+.drafting-grid {
+  background-image: 
+    linear-gradient(to right, var(--border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.25;
+}
+
+/* Technical Corner Markings */
+.technical-corner {
+  position: relative;
+}
+.technical-corner::before,
+.technical-corner::after {
+  content: "+";
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--border-strong);
+  line-height: 1;
+}
+.technical-corner::before {
+  top: 4px;
+  left: 6px;
+}
+.technical-corner::after {
+  bottom: 4px;
+  right: 6px;
+}
+
+/* ============================================================
+   Focus Styles
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   Reduced Motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   Section Padding & Rhythms
+   ============================================================ */
+.section-padding {
+  padding-top: 72px;
+  padding-bottom: 72px;
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding-top: 104px;
+    padding-bottom: 104px;
+  }
+}
+
+/* Section Divider: Precision Drafting Line */
+.section-divider {
+  position: relative;
+  height: 1px;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  background: var(--border);
+  opacity: 0.7;
+}
+
+.section-divider::after {
+  content: "+";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+  background: var(--bg);
+  padding: 0 8px;
+}
+
+/* ============================================================
+   Custom Keyframes
+   ============================================================ */
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.15);
+  }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* ============================================================
+   Scrollbar styling
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
 }
