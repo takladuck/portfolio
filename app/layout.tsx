@@ -13,14 +13,12 @@ const interTight = Inter_Tight({
   variable: "--font-inter-tight",
   subsets: ["latin"],
   display: "swap",
-  weight: ["600", "700"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
